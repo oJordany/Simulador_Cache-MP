@@ -226,7 +226,7 @@ elif R == 2:   #Caso o usuário tenha escolhido o método de mapeamento associat
                 print(MP[l])
         else:
             print('O sinal inserido não é válido\nTente novamente')
-        # caso o usuário/processador queira realizar uma nova leitura, ele dever apertar 'P', caso queira finalizar, ele deve apertar enter
+        # caso o usuário/processador queira realizar uma nova operação, ele dever apertar 'C', caso queira finalizar, ele deve apertar enter
         res = str(input('[C] para continuar ou [enter] para finalizar: ')).upper().strip()
 else:
     print('Erro! Essa opção não é válida\nFinalizando programa...')
