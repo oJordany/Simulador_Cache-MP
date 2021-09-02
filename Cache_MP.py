@@ -207,12 +207,12 @@ elif R == 2:   #Caso o usuário tenha escolhido o método de mapeamento associat
             for c in range(0,8):
                 infescritalista.append(int(infescrita[c:c+1]))
             if celula == '0':   #se a célula/byte endereçado for o 0...
-                bytepermanente
+                bytepermanente = []
                 bytepermanente = MPblocos[int(bloco, 2)][1]   #byte que não vai mudar dentro do bloco
                 p_aleatoria = random.randint(0, 3)  # gerador de uma posição aleatória
                 cache[p_aleatoria][1] = bytepermanente
             if celula == '1':   #se a célula/byte endereçado for o 1...
-                bytepermanente
+                bytepermanente = []
                 bytepermanente = MPblocos[int(bloco,2)][0]    #byte que não vai mudar dentro do bloco
                 p_aleatoria = random.randint(0, 3)  # gerador de uma posição aleatória
                 cache[p_aleatoria][0] = bytepermanente
