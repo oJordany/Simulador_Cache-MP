@@ -83,7 +83,7 @@ if R == 1:
             bloco = endereco[0:4]  #o endereço é fatiado no campo de bloco
             linha = endereco[2:4]  #o endereço é fatiado no campo linha
             infescrita = str(input('UCP insere a informação no BD (8 bits): '))  #informação(byte) que vai ser escrita
-            infescritalista = [] #lista com a informação(byte) escrito
+            infescritalista = [] #lista com a informação(byte) escrita
             #infescritalista recebe os valores de cada bit
             for c in range(0, 8):
                 infescritalista.append(int(infescrita[c:c + 1]))
@@ -94,6 +94,7 @@ if R == 1:
                 MPblocos.append(MP[k:k + 2])
             cache[int(linha,2)] = MPblocos[int(bloco,2)]  #cache é atualizada
             linhascache[int(linha, 2)][0] = [bloco]   #linhascache é atualizada
+            print('CACHE: ')
             for l in range(0, 4):
                 print(cache[l])   #Mostra a situação da cache
             print('MP:')
@@ -101,16 +102,16 @@ if R == 1:
                 print(MP[l])      #Mostra a situação da MP
 
         else:
-            print('O sinal inserido não é válido\nFinalizando programa...')
+            print('O sinal inserido não é válido\nTente novamente')
         # caso o usuário/processador queira realizar uma nova operação, ele dever apertar 'P', caso queira finalizar, ele deve apertar enter
         res = str(input('[C] para continuar ou [enter] para finalizar: ')).upper().strip()
 
-elif R == 2:
+elif R == 2:   #Caso o usuário tenha escolhido o método de mapeamento associativo
     print('{:^60}'.format('MÉTODO DE MAPEAMENTO ASSOCIATIVO'))
     print('{:^60}'.format('MEMÓRIA RAM: 32 bytes'))
     print('{:^60}'.format('BARRAMENTO DE ENDEREÇO: 5 bits'))
     cont = 0  # Contador se inicia em 0
-    res = 'C'  # Resposta do usuário/processador recebe 'P'
+    res = 'C'  # Resposta do usuário/processador recebe 'C'
     totbits = []  # Cria-se uma lista vazia que vai receber o total de bits da MP
     MP = []  # Cria-se uma lista vazia que corresponde a MP
     cache = [[[], []], [[], []], [[], []], [[],[]]]  # Cria-se uma lista com 4 sublistas (linha) e dentro delas há 2 sublistas (bytes). Portanto as linhas têm largura de 2 bytes
@@ -134,7 +135,7 @@ elif R == 2:
     while res == 'C':
         print('{:^60}'.format('UC insere o sinal de leitura/escrita:'))
         print('[ 0 ] para escrita\n[ 1 ] para leitura')
-        sinal = str(input(('UCP escolhe uma opção: ')))
+        sinal = str(input(('UCP escolhe uma opção: ')))   #sinal de leitura ou escrita é inserido
         if sinal == '1':  #Se a opção 1 (leitura) for escolhida...
             cont += 1  #essse contador vai auxiliar para contar a quantidade de acessos do usuário/processador
             endereco = str(input('UCP insere o endereço desejado: '))  # usuário insere o endereço que deseja ler
@@ -168,7 +169,7 @@ elif R == 2:
                 if bloco == blocoscache[0][0] or bloco == blocoscache[1][0] or bloco == blocoscache[2][0] or bloco == blocoscache[3][0] :  # Basicamente, isso faz a função do comparador de blocos
                     print('Ocorreu um hit!\nA informação já está na cache.')  # vai ocorrer um hit
                     print('BYTE: {}'.format(cache[indicador][int(celula,2)]))  # A informação(byte) é buscada na cache, na sublista indicada pela posição gerada pela variável indicador e dentro dessa sublista é escolhido o byte correspondente a variável celula
-                    print('CACHE:')
+                    print('CACHE:')    #mostra a situação da cache
                     for l in range(0, 4):
                         print(cache[l])
                 # se o comparador de tags não der igual...
@@ -208,9 +209,8 @@ elif R == 2:
             print('MP: ')           #Mostra a situação da MP
             for l in range(0, 32):
                 print(MP[l])
-
         else:
-            print('O sinal inserido não é válido\nFinalizando programa...')
+            print('O sinal inserido não é válido\nTente novamente')
         # caso o usuário/processador queira realizar uma nova leitura, ele dever apertar 'P', caso queira finalizar, ele deve apertar enter
         res = str(input('[C] para continuar ou [enter] para finalizar: ')).upper().strip()
 else:
