@@ -80,6 +80,7 @@ if R == 1:
         elif sinal == '0':    #Se a opção 0 (escrita) for escolhida...
             cont += 1           #essse contador vai auxiliar para contar a quantidade de acessos do usuário/processador
             endereco = str(input('UCP insere o endereço desejado: '))  #endereço da escrita
+            celula = endereco[4:5] #o endereço é fatiado no campo célula
             bloco = endereco[0:4]  #o endereço é fatiado no campo de bloco
             linha = endereco[2:4]  #o endereço é fatiado no campo linha
             infescrita = str(input('UCP insere a informação no BD (8 bits): '))  #informação(byte) que vai ser escrita
@@ -87,12 +88,18 @@ if R == 1:
             #infescritalista recebe os valores de cada bit
             for c in range(0, 8):
                 infescritalista.append(int(infescrita[c:c + 1]))
+            if celula == '0':   #se a célula/byte endereçado for o 0...
+                bytepermanente = MPblocos[int(bloco, 2)][1]   #byte que não vai mudar dentro do bloco
+                cache[int(linha,2)][1] = bytepermanente
+            if celula == '1':   #se a célula/byte endereçado for o 1...
+                bytepermanente = MPblocos[int(bloco,2)][0]    #byte que não vai mudar dentro do bloco
+                cache[int(linha,2)][0] = bytepermanente
             MP[int(endereco, 2)] = infescritalista   #MP é atualizada
             #MPblocos é atualizada
             MPblocos = []
             for k in range(0, len(MP), 2):
                 MPblocos.append(MP[k:k + 2])
-            cache[int(linha,2)] = MPblocos[int(bloco,2)]  #cache é atualizada
+            cache[int(linha,2)][int(celula,2)] = infescritalista  #a célula da cache é atualizada na posição correta da célula pedida
             linhascache[int(linha, 2)][0] = [bloco]   #linhascache é atualizada
             print('CACHE: ')
             for l in range(0, 4):
@@ -191,17 +198,25 @@ elif R == 2:   #Caso o usuário tenha escolhido o método de mapeamento associat
             cont += 1         #essse contador vai auxiliar para contar a quantidade de acessos do usuário/processador
             endereco = str(input('UCP insere o endereço desejado: '))   #endereço da escrita
             bloco = endereco[0:4]      #o endereço é fatiado no campo de bloco
+            celula = endereco[4:5]     #o endereço é fatiado no campo célula
             infescrita = str(input('UCP insere a informação no BD: '))    #informação(byte) que vai ser escrita
             infescritalista = []    #lista com a informação(byte) escrito
             #infescritalista recebe os valores de cada bit
             for c in range(0,8):
                 infescritalista.append(int(infescrita[c:c+1]))
+            if celula == '0':   #se a célula/byte endereçado for o 0...
+                bytepermanente = MPblocos[int(bloco, 2)][1]   #byte que não vai mudar dentro do bloco
+                p_aleatoria = random.randint(0, 3)  # gerador de uma posição aleatória
+                cache[p_aleatoria][1] = bytepermanente
+            if celula == '1':   #se a célula/byte endereçado for o 1...
+                bytepermanente = MPblocos[int(bloco,2)][0]    #byte que não vai mudar dentro do bloco
+                p_aleatoria = random.randint(0, 3)  # gerador de uma posição aleatória
+                cache[p_aleatoria][0] = bytepermanente
             MP[int(endereco, 2)] = infescritalista      #MP é atualizada
             MPblocos = []                               #MPblocos é atualizada
             for k in range(0, len(MP), 2):
                 MPblocos.append(MP[k:k + 2])
-            p_aleatoria = random.randint(0, 3)            #gerador de uma posição aleatória
-            cache[p_aleatoria] = MPblocos[int(bloco,2)]   #cache é atualizada com a informação(que foi escrita) em uma linha aleatória
+            cache[p_aleatoria][int(celula,2)] = infescritalista  #cache é atualizada com a informação(que foi escrita) na mesma posição aleatória, na célula desejada
             blocoscache[p_aleatoria] = [bloco]            #blocoscache é atualizado com o endereço do bloco que foi escrito (na mesma linha aleatória em que a informação foi escrita na cache)
             print('CACHE: ')        #Mostra a situação da cache
             for l in range(0, 4):
