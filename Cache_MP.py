@@ -201,7 +201,7 @@ elif R == 2:   #Caso o usuário tenha escolhido o método de mapeamento associat
             endereco = str(input('UCP insere o endereço desejado: '))   #endereço da escrita
             bloco = endereco[0:4]      #o endereço é fatiado no campo de bloco
             celula = endereco[4:5]     #o endereço é fatiado no campo célula
-            infescrita = str(input('UCP insere a informação no BD: '))    #informação(byte) que vai ser escrita
+            infescrita = str(input('UCP insere a informação no BD (8 bits): '))    #informação(byte) que vai ser escrita
             infescritalista = []    #lista com a informação(byte) escrito
             #infescritalista recebe os valores de cada bit
             for c in range(0,8):
