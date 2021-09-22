@@ -2,7 +2,7 @@
 
 Simulador da interação entre cache e MP feito em Python
 
-Universida Federeal do Pará - Ciência da Computação
+Universidade Federeal do Pará - Ciência da Computação
 
 Trabalho de Sistemas de Computação
 
